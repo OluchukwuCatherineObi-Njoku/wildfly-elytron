@@ -85,7 +85,7 @@ public class FileAuditEndpoint implements AuditEndpoint {
             if (! isSetUp) {
                 safeClose(fos);
             }
-        }
+        } 
     }
 
     File getFile() {
