@@ -67,7 +67,7 @@ public class FileAuditEndpoint implements AuditEndpoint {
     }
 
     void setFile(final File file) throws IOException {
-        boolean ok = false;
+        boolean isSetUp = false;
         final FileOutputStream fos = new FileOutputStream(file, true);
         try {
             final OutputStream bos = new BufferedOutputStream(fos);
@@ -75,14 +75,14 @@ public class FileAuditEndpoint implements AuditEndpoint {
                 this.fileDescriptor = fos.getFD();
                 this.outputStream = bos;
                 this.file = file;
-                ok = true;
+                isSetUp = true;
             } finally {
-                if (! ok) {
+                if (! isSetUp) {
                     safeClose(bos);
                 }
             }
         } finally {
-            if (! ok) {
+            if (! isSetUp) {
                 safeClose(fos);
             }
         }
@@ -105,7 +105,7 @@ public class FileAuditEndpoint implements AuditEndpoint {
      * This method can be overridden by subclasses to modify data written into file (to encrypt them for example),
      * or just for counting amount of written bytes for needs of log rotation and similar.
      *
-     * This method can be invoked only in synchronization block surrounding one log message processing.
+     * This method can be invisSetUped only in synchronization block surrounding one log message processing.
      *
      * @param bytes the data to be written into the target local file
      */
@@ -118,7 +118,7 @@ public class FileAuditEndpoint implements AuditEndpoint {
      * This method is NO-OP by default. It is intended to be overridden by subclasses
      * which need to perform some operation before every writing into the target local file.
      *
-     * This method can be invoked only in synchronization block surrounding one log message processing.
+     * This method can be invisSetUped only in synchronization block surrounding one log message processing.
      *
      * @param instant time of the message acceptance
      */
